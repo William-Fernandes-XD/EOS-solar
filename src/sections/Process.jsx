@@ -32,17 +32,15 @@ export function Process() {
             />
           </div>
           <ol className="process-steps">
-            {PROCESS.map((step, index) => (
-              <Reveal key={step.index} delay={index * 0.04}>
-                <li className="process-step">
-                  <span className="dot is-on" />
-                  <span>
-                    <span className="idx">{step.index}</span>
-                    <h3>{step.title}</h3>
-                  </span>
-                  <p className="muted">{step.text}</p>
-                </li>
-              </Reveal>
+            {PROCESS.map((step) => (
+              <li className="process-step" key={step.index}>
+                <span className="dot is-on" />
+                <span>
+                  <span className="idx">{step.index}</span>
+                  <h3>{step.title}</h3>
+                </span>
+                <p className="muted">{step.text}</p>
+              </li>
             ))}
           </ol>
         </div>

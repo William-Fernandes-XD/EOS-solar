@@ -34,26 +34,18 @@ export function Solutions() {
               </button>
             ))}
           </div>
-          <div className="sol-visual" aria-hidden={!fine}>
+          <div className="sol-visual">
             {SOLUTIONS.map((item, index) => (
               <img
                 key={item.id}
                 src={item.image}
-                alt=""
+                alt={item.alt}
                 className={active === index ? "is-on" : ""}
                 loading="lazy"
               />
             ))}
             <span className="sol-caption">{SOLUTIONS[active].title}</span>
           </div>
-        </div>
-        <div className="sol-mobile-card" style={{ marginTop: "1.5rem" }}>
-          <img
-            src={SOLUTIONS[active].image}
-            alt={SOLUTIONS[active].alt}
-            loading="lazy"
-            style={{ width: "100%", height: 280, objectFit: "cover" }}
-          />
         </div>
       </div>
     </section>

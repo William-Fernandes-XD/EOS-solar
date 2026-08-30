@@ -39,20 +39,22 @@ export function Lightbox({ items, index, onClose, onPrev, onNext }) {
                 {item.kind}
               </p>
             </div>
-            <button type="button" onClick={onClose} aria-label="Fechar galeria">
-              <X />
+            <button className="icon-btn" type="button" onClick={onClose} aria-label="Fechar galeria">
+              <X size={22} />
             </button>
           </div>
-          <img src={item.src} alt={item.alt} />
+          <div className="lightbox-stage">
+            <img src={item.src} alt={item.alt} />
+          </div>
           <div className="lightbox-nav">
-            <button type="button" onClick={onPrev} aria-label="Imagem anterior">
-              <ChevronLeft />
+            <button className="icon-btn" type="button" onClick={onPrev} aria-label="Imagem anterior">
+              <ChevronLeft size={22} />
             </button>
             <span className="tech-label">
               {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
             </span>
-            <button type="button" onClick={onNext} aria-label="Próxima imagem">
-              <ChevronRight />
+            <button className="icon-btn" type="button" onClick={onNext} aria-label="Próxima imagem">
+              <ChevronRight size={22} />
             </button>
           </div>
         </motion.div>

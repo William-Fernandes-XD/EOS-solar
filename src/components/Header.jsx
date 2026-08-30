@@ -28,6 +28,15 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1100px)");
+    const close = () => {
+      if (mq.matches) setOpen(false);
+    };
+    mq.addEventListener("change", close);
+    return () => mq.removeEventListener("change", close);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -35,38 +44,42 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className={`header ${scrolled ? "is-scrolled" : ""}`}>
-      <div className="header-inner">
-        <a href="#inicio" aria-label="EOS Engenharia Sustentável — início">
-          <Logo />
-        </a>
-        <nav className="nav" aria-label="Principal">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              aria-current={active === link.href ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-        <MagneticButton href="whatsapp" className="btn-gold">
-          Solicitar orçamento
-        </MagneticButton>
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
+    <>
+      <header className={`header ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
+        <div className="header-inner">
+          <a href="#inicio" aria-label="EOS Engenharia Sustentável — início">
+            <Logo />
+          </a>
+          <nav className="nav" aria-label="Principal">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                aria-current={active === link.href ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <MagneticButton href="whatsapp" className="btn-gold header-cta">
+            Solicitar orçamento
+          </MagneticButton>
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </header>
       <AnimatePresence>
         {open ? (
           <motion.nav
+            id="menu-mobile"
             className="drawer"
             aria-label="Mobile"
             initial={{ opacity: 0 }}
@@ -84,6 +97,6 @@ export function Header() {
           </motion.nav>
         ) : null}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
